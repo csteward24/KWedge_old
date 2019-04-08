@@ -33,9 +33,28 @@ namespace KWedge
         {
             EndSerialThread();
         }
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            //if the form is minimized  
+            //hide it from the task bar  
+            //and show the system tray icon (represented by the NotifyIcon control)  
+            Debug.WriteLine("Resize detected");
+            if (WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                notifyIcon.Visible = true;
+                notifyIcon.ShowBalloonTip(1000);
+            }
+        }
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            notifyIcon.Visible = false;
+        }
         private void GetData(String str)
         {
-            lblData.Text = str;
+            //lblData.Text = str;
             try
             {
                 if (this != Form.ActiveForm)
@@ -78,6 +97,7 @@ namespace KWedge
             serialRunning = true;
             btnConnect.BackColor = Color.Crimson;
             btnConnect.Text = "Disconnect";
+            lstPorts.Enabled = false;
         }
         private void EndSerialThread()
         {
@@ -86,6 +106,7 @@ namespace KWedge
             serialRunning = false;
             btnConnect.BackColor = Color.Gainsboro;
             btnConnect.Text = "Connect";
+            lstPorts.Enabled = true;
         }
         void HandleSessionSwitch(object sender, SessionSwitchEventArgs a)
         {
@@ -105,6 +126,11 @@ namespace KWedge
                 }
 
             }
+        }
+
+        private void LogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

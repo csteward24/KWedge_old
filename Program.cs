@@ -14,7 +14,7 @@ namespace KWedge
         [STAThread]
         static void Main()
         {
-            
+            //TODO: handle serial port access denied
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

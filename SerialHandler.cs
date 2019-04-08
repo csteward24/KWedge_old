@@ -44,9 +44,14 @@ namespace KWedge
                     Debug.WriteLine("Could not read serial data");
                     break;
                 }
-                if (data.Length == 10)
+                if (data.Length == 10 || data.Length == 14)
                 {
                     Debug.WriteLine(String.Format("Serial Input: {0}", data));
+                    if (data.Substring(0, 4).Equals("0000"))
+                    {
+                        Debug.WriteLine("trimming leading zeros");
+                        data = data.Substring(4);
+                    }
                     form.Invoke(form.datastate, data);
                 }
                 else
